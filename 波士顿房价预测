@@ -1,0 +1,30 @@
+from sklearn.datasets import load_boston
+from sklearn.ensemble import AdaBoostRegressor
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+
+data = load_boston()
+#print(data)
+train_x,test_x,train_y,test_y = train_test_split(data.data,data.target,test_size=0.25,random_state=33)
+adaregressor = AdaBoostRegressor()
+adaregressor.fit(train_x,train_y)
+adapredict_y = adaregressor.predict(test_x)
+adames = mean_squared_error(test_y,adapredict_y)
+print('ada房价预测结果：',adapredict_y)
+print('ada均方误差：',adames)
+
+deciregressor = DecisionTreeRegressor()
+deciregressor.fit(train_x,train_y)
+decipredict_y = deciregressor.predict(test_x)
+decimes = mean_squared_error(test_y,decipredict_y)
+print('deci房价预测结果：',decipredict_y)
+print('deci均方误差：',decimes)
+
+knnregressor = KNeighborsRegressor()
+knnregressor.fit(train_x,train_y)
+knnpredict_y = knnregressor.predict(test_x)
+knnmes = mean_squared_error(test_y,knnpredict_y)
+print('knn房价预测结果：',knnpredict_y)
+print('knn均方误差：',knnmes)
